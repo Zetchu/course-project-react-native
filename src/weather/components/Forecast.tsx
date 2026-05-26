@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import Card from './shared/components/Card';
+import { Card } from '#shared';
 import {
   fetchWeatherForecast,
   Location,
   ForecastDayData,
-} from './weatherService';
+} from '../services/weatherService';
 
 const Forecast: React.FC<{ location: Location }> = ({ location }) => {
   const [data, setData] = useState<ForecastDayData[]>();

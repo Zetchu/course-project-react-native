@@ -1,68 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ActivityIndicator,
-  SafeAreaView,
-} from 'react-native';
-import {
-  CurrentWeather,
-  Forecast,
-  fetchWeather,
-  fetchForecast,
-} from '#weather';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { CurrentWeather, Forecast, Location } from '#weather';
 
 export default function WeatherScreen() {
-  const [weatherData, setWeatherData] = useState<any>(null);
-  const [forecastData, setForecastData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    async function loadWeatherData() {
-      try {
-        setLoading(true);
-        const city = 'Barcelona';
-        const current = await fetchWeather(city);
-        const forecast = await fetchForecast(city);
-        setWeatherData(current);
-        setForecastData(forecast);
-        setError(null);
-      } catch (err) {
-        setError('Could not retrieve updated weather metrics.');
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadWeatherData();
-  }, []);
-
-  if (loading) {
-    return (
-      <View style={styles.centerContainer}>
-        <ActivityIndicator
-          size='large'
-          color='#0284c7'
-        />
-      </View>
-    );
-  }
-
-  if (error) {
-    return (
-      <View style={styles.centerContainer}>
-        <Text style={styles.errorText}>{error}</Text>
-      </View>
-    );
-  }
+  const location: Location = {
+    name: 'Barcelona',
+    latitude: 41.3888,
+    longitude: 2.159,
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.headerTitle}>Skycast Dashboard</Text>
-        {weatherData && <CurrentWeather data={weatherData} />}
-        {forecastData && <Forecast data={forecastData} />}
+        <CurrentWeather location={location} />
+        <Forecast location={location} />
       </View>
     </SafeAreaView>
   );
