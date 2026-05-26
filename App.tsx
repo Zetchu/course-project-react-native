@@ -2,7 +2,7 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
-import CurrentWeather from './src/CurrentWeather';
+import CurrentWeather from './src/weather/components/CurrentWeather';
 import Forecast from './src/Forecast';
 
 // Center coordinate for the weather data view
