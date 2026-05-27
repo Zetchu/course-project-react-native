@@ -10,6 +10,12 @@
     "lint-knip": "knip",
     "start": "expo start"
   },
+  "imports": {
+    "#shared": "./src/shared/index.tsx",
+    "#shared/*": "./src/shared/*",
+    "#weather": "./src/weather/index.tsx",
+    "#weather/*": "./src/weather/*"
+  },
   "dependencies": {
     "@expo/vector-icons": "^15.1.1",
     "@react-native-async-storage/async-storage": "2.2.0",
