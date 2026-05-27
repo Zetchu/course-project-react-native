@@ -33,9 +33,12 @@ const Forecast: React.FC<{ location: Location }> = ({ location }) => {
             key={day}
             style={styles.day}
           >
-            <Text style={styles.temperatureMax}>{temperatureMax} C</Text>
-            <Text style={styles.temperatureMin}>{temperatureMin} C</Text>
+            <Text style={styles.dayText}>{day}</Text>
             <Text style={styles.condition}>{condition}</Text>
+            <View style={styles.tempContainer}>
+              <Text style={styles.temperatureMax}>{temperatureMax}°</Text>
+              <Text style={styles.temperatureMin}>{temperatureMin}°</Text>
+            </View>
           </View>
         ))}
       </ScrollView>
@@ -46,9 +49,28 @@ const Forecast: React.FC<{ location: Location }> = ({ location }) => {
 export default Forecast;
 
 const styles = StyleSheet.create({
-  temperatureMax: { fontSize: 18 },
-  temperatureMin: { fontSize: 14, color: '#888' },
-  condition: { fontWeight: 'bold' },
   days: { flexGrow: 0, flexDirection: 'row' },
-  day: { flex: 1, alignItems: 'center', marginHorizontal: 16 },
+  day: {
+    alignItems: 'center',
+    marginHorizontal: 8,
+    padding: 12,
+    backgroundColor: '#f8fafc',
+    borderRadius: 12,
+    minWidth: 80,
+  },
+  dayText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#0f172a',
+    marginBottom: 8,
+  },
+  condition: {
+    fontSize: 12,
+    color: '#64748b',
+    fontWeight: '500',
+    marginBottom: 8,
+  },
+  tempContainer: { flexDirection: 'row', gap: 8 },
+  temperatureMax: { fontSize: 16, fontWeight: 'bold', color: '#0f172a' },
+  temperatureMin: { fontSize: 16, color: '#94a3b8' },
 });

@@ -1,3 +1,5 @@
+import toWeather from '../utils/toWeather';
+
 export interface Location {
   name: string;
   latitude: number;
@@ -5,7 +7,7 @@ export interface Location {
 }
 
 export interface CurrentWeatherData {
-  condition: number;
+  condition: string;
   temperature: number;
   wind: number;
   humidity: number;
@@ -16,7 +18,7 @@ export interface ForecastDayData {
   day: string;
   temperatureMax: number;
   temperatureMin: number;
-  condition: number;
+  condition: string;
 }
 
 /**
@@ -34,7 +36,13 @@ export async function fetchCurrentWeather(
       'Weather API failed, returning fallback data',
       response.status,
     );
-    return { condition: 0, temperature: 25, wind: 10, humidity: 50, uv: 5 };
+    return {
+      condition: 'Clear',
+      temperature: 25,
+      wind: 10,
+      humidity: 50,
+      uv: 5,
+    };
   }
 
   const data = (await response.json()) as {
@@ -48,7 +56,7 @@ export async function fetchCurrentWeather(
   };
 
   return {
-    condition: data.current.weather_code,
+    condition: toWeather(data.current.weather_code),
     temperature: data.current.temperature_2m,
     wind: data.current.wind_speed_10m,
     humidity: data.current.relative_humidity_2m,
@@ -76,19 +84,19 @@ export async function fetchWeatherForecast(
         day: new Date().toISOString().split('T')[0],
         temperatureMax: 28,
         temperatureMin: 18,
-        condition: 1,
+        condition: 'Cloudy',
       },
       {
         day: new Date(Date.now() + 86400000).toISOString().split('T')[0],
         temperatureMax: 26,
         temperatureMin: 17,
-        condition: 2,
+        condition: 'Cloudy',
       },
       {
         day: new Date(Date.now() + 172800000).toISOString().split('T')[0],
         temperatureMax: 25,
         temperatureMin: 16,
-        condition: 3,
+        condition: 'Overcast',
       },
     ];
   }
@@ -104,11 +112,19 @@ export async function fetchWeatherForecast(
 
   const forecast: ForecastDayData[] = [];
   for (let i = 0; i < data.daily.time.length; i++) {
+    let dayStr = data.daily.time[i];
+    try {
+      const date = new Date(dayStr);
+      dayStr = new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(
+        date,
+      );
+    } catch {}
+
     forecast.push({
-      day: data.daily.time[i],
+      day: dayStr,
       temperatureMax: data.daily.temperature_2m_max[i],
       temperatureMin: data.daily.temperature_2m_min[i],
-      condition: data.daily.weather_code[i],
+      condition: toWeather(data.daily.weather_code[i]),
     });
   }
 
