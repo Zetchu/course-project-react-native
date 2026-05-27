@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Card } from '#shared';
+import { Card } from '../../../src/shared';
 
 export default function FavoritesIndex() {
   const router = useRouter();

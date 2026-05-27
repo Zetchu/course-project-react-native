@@ -2,19 +2,14 @@ import { Stack } from 'expo-router';
 
 export default function FavoritesLayout() {
   return (
-    <Stack
-      screenOptions={{
-        headerTintColor: '#fff',
-        headerStyle: { backgroundColor: '#0284c7' },
-      }}
-    >
+    <Stack>
       <Stack.Screen
         name='index'
-        options={{ title: 'Saved Locations' }}
+        options={{ title: 'Favorites' }}
       />
       <Stack.Screen
         name='[id]'
-        options={{ title: 'Location Deep-dive' }}
+        options={{ title: 'Details' }}
       />
     </Stack>
   );

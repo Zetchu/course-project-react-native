@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { CurrentWeather, Forecast, Location } from '#weather';
+import { CurrentWeather, Forecast, Location } from '../../src/weather';
 
 export default function WeatherScreen() {
   const location: Location = {
