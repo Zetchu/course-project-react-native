@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
+import * as Haptics from 'expo-haptics';
 
 import { Card } from '../../shared';
 import {
@@ -7,48 +14,103 @@ import {
   Location,
   CurrentWeatherData,
 } from '../services/weatherService';
+import { useCurrentLocation } from '../useCurrentLocation';
 
-const CurrentWeather: React.FC<{ location: Location }> = ({ location }) => {
+const CurrentWeather: React.FC<{ location?: Location }> = ({
+  location: propLocation,
+}) => {
+  const deviceLocation = useCurrentLocation();
+  // Use the passed location (e.g., from the Favorites screen) or fallback to GPS
+  const location = propLocation ?? deviceLocation;
+
   const [data, setData] = useState<CurrentWeatherData>();
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const loadWeather = async (manualRefresh = false) => {
+    if (!location) return;
+
+    if (manualRefresh) {
+      setIsRefreshing(true);
+      // Give immediate light tactile feedback when the user taps to refresh
+      void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    }
+
+    try {
+      const weatherData = await fetchCurrentWeather(location);
+      setData(weatherData);
+
+      if (manualRefresh) {
+        // Vibrate with a success pattern when the data finishes loading
+        void Haptics.notificationAsync(
+          Haptics.NotificationFeedbackType.Success,
+        );
+      }
+    } catch (error) {
+      console.error(error);
+      if (manualRefresh) {
+        // Vibrate with an error pattern if the fetch fails
+        void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+      }
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
 
   useEffect(() => {
-    void (async () => {
-      try {
-        const weatherData = await fetchCurrentWeather(location);
-        setData(weatherData);
-      } catch (error) {
-        console.error(error);
-      }
-    })();
+    void loadWeather();
   }, [location]);
 
-  return (
-    <Card>
-      <View style={styles.current}>
-        <Text style={styles.temperature}>{data?.temperature ?? '--'}°C</Text>
-        <Text style={styles.location}>{location.name}</Text>
-        <Text style={styles.condition}>{data?.condition ?? '--'}</Text>
-      </View>
+  // Show a loading state while waiting for GPS coordinates
+  if (!location) {
+    return (
+      <Card>
+        <View style={[styles.current, { paddingVertical: 40 }]}>
+          <ActivityIndicator
+            size='large'
+            color='#0f172a'
+          />
+          <Text style={styles.loadingText}>Locating device...</Text>
+        </View>
+      </Card>
+    );
+  }
 
-      <View style={styles.stats}>
-        <View style={styles.stat}>
-          <Text style={styles.statValue}>
-            {data?.wind.toFixed(0) ?? '--'} km/h
+  return (
+    <TouchableOpacity
+      activeOpacity={0.9}
+      onPress={() => loadWeather(true)}
+    >
+      <Card>
+        <View style={styles.current}>
+          <Text style={styles.temperature}>{data?.temperature ?? '--'}°C</Text>
+          <Text style={styles.location}>
+            {location.name} {propLocation ? '' : '(Current)'}
           </Text>
-          <Text style={styles.statLabel}>Wind</Text>
-        </View>
-        <View style={styles.stat}>
-          <Text style={styles.statValue}>
-            {data?.humidity.toFixed(0) ?? '--'}%
+          <Text style={styles.condition}>
+            {isRefreshing ? 'Refreshing...' : (data?.condition ?? '--')}
           </Text>
-          <Text style={styles.statLabel}>Humidity</Text>
         </View>
-        <View style={styles.stat}>
-          <Text style={styles.statValue}>{data?.uv.toFixed(0) ?? '--'}</Text>
-          <Text style={styles.statLabel}>UV</Text>
+
+        <View style={styles.stats}>
+          <View style={styles.stat}>
+            <Text style={styles.statValue}>
+              {data?.wind.toFixed(0) ?? '--'} km/h
+            </Text>
+            <Text style={styles.statLabel}>Wind</Text>
+          </View>
+          <View style={styles.stat}>
+            <Text style={styles.statValue}>
+              {data?.humidity.toFixed(0) ?? '--'}%
+            </Text>
+            <Text style={styles.statLabel}>Humidity</Text>
+          </View>
+          <View style={styles.stat}>
+            <Text style={styles.statValue}>{data?.uv.toFixed(0) ?? '--'}</Text>
+            <Text style={styles.statLabel}>UV</Text>
+          </View>
         </View>
-      </View>
-    </Card>
+      </Card>
+    </TouchableOpacity>
   );
 };
 
@@ -63,6 +125,11 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#334155',
     marginTop: 8,
+  },
+  loadingText: {
+    marginTop: 12,
+    color: '#64748b',
+    fontWeight: '500',
   },
   stats: {
     flexDirection: 'row',

@@ -5,3 +5,4 @@ export {
   fetchWeatherForecast,
   type Location,
 } from './services/weatherService';
+export { useCurrentLocation, type WeatherLocation } from './useCurrentLocation';

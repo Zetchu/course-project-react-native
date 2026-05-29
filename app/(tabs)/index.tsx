@@ -1,15 +1,11 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ActivityIndicator, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { CurrentWeather, Forecast, Location } from '#weather';
+import { CurrentWeather, Forecast, useCurrentLocation } from '#weather';
 import { Typography } from '#shared';
 
 export default function WeatherScreen() {
-  const location: Location = {
-    name: 'Barcelona',
-    latitude: 41.3888,
-    longitude: 2.159,
-  };
+  const location = useCurrentLocation();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -20,8 +16,24 @@ export default function WeatherScreen() {
         >
           Skycast Dashboard
         </Typography>
-        <CurrentWeather location={location} />
-        <Forecast location={location} />
+
+        {/* Wait for the GPS coordinates to load before rendering the weather cards */}
+        {!location ? (
+          <View style={styles.centerContainer}>
+            <ActivityIndicator
+              size='large'
+              color='#0f172a'
+            />
+            <Text style={{ marginTop: 12, color: '#64748b' }}>
+              Acquiring satellite signal...
+            </Text>
+          </View>
+        ) : (
+          <>
+            <CurrentWeather location={location} />
+            <Forecast location={location} />
+          </>
+        )}
       </View>
     </SafeAreaView>
   );
@@ -38,5 +50,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 100,
   },
 });
