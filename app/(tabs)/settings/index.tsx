@@ -23,6 +23,18 @@ export default function SettingsIndex() {
 
       <TouchableOpacity
         activeOpacity={0.8}
+        onPress={() => router.push('/settings/notifications')}
+      >
+        <Card>
+          <Text style={styles.cardTitle}>🔔 Notification Center</Text>
+          <Text style={styles.cardSubtitle}>
+            Configure system weather alerts and simulated updates
+          </Text>
+        </Card>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        activeOpacity={0.8}
         onPress={() => router.push('/settings/profile')}
       >
         <Card>
