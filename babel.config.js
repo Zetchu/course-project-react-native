@@ -1,9 +1,9 @@
 module.exports = function (api) {
   api.cache(true);
   return {
-    presets: ['babel-preset-expo'],
+    presets: ["babel-preset-expo"],
     plugins: [
-      'react-native-reanimated/plugin', // This is what stops the HostFunction crash
+      "react-native-reanimated/plugin", // This is what stops the HostFunction crash
     ],
   };
 };

@@ -1,5 +1,5 @@
-import { DeviceMotion, type DeviceMotionMeasurement } from 'expo-sensors';
-import { useEffect, useState } from 'react';
+import { DeviceMotion, type DeviceMotionMeasurement } from "expo-sensors";
+import { useEffect, useState } from "react";
 
 export function useDeviceMotion(): DeviceMotionMeasurement | null {
   const [motion, setMotion] = useState<DeviceMotionMeasurement | null>(null);

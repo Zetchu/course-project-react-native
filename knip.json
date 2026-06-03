@@ -1,0 +1,6 @@
+{
+  "ignore": ["babel.config.js"],
+  "rules": {
+    "exports": "warn"
+  }
+}

@@ -1,4 +1,4 @@
-import toWeather from '../utils/toWeather';
+import toWeather from "../utils/toWeather";
 
 export interface Location {
   name: string;
@@ -33,11 +33,11 @@ export async function fetchCurrentWeather(
 
   if (!response.ok) {
     console.warn(
-      'Weather API failed, returning fallback data',
+      "Weather API failed, returning fallback data",
       response.status,
     );
     return {
-      condition: 'Clear',
+      condition: "Clear",
       temperature: 25,
       wind: 10,
       humidity: 50,
@@ -76,27 +76,27 @@ export async function fetchWeatherForecast(
 
   if (!response.ok) {
     console.warn(
-      'Forecast API failed, returning fallback data',
+      "Forecast API failed, returning fallback data",
       response.status,
     );
     return [
       {
-        day: new Date().toISOString().split('T')[0],
+        day: new Date().toISOString().split("T")[0],
         temperatureMax: 28,
         temperatureMin: 18,
-        condition: 'Cloudy',
+        condition: "Cloudy",
       },
       {
-        day: new Date(Date.now() + 86400000).toISOString().split('T')[0],
+        day: new Date(Date.now() + 86400000).toISOString().split("T")[0],
         temperatureMax: 26,
         temperatureMin: 17,
-        condition: 'Cloudy',
+        condition: "Cloudy",
       },
       {
-        day: new Date(Date.now() + 172800000).toISOString().split('T')[0],
+        day: new Date(Date.now() + 172800000).toISOString().split("T")[0],
         temperatureMax: 25,
         temperatureMin: 16,
-        condition: 'Overcast',
+        condition: "Overcast",
       },
     ];
   }
@@ -115,7 +115,7 @@ export async function fetchWeatherForecast(
     let dayStr = data.daily.time[i];
     try {
       const date = new Date(dayStr);
-      dayStr = new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(
+      dayStr = new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(
         date,
       );
     } catch {}

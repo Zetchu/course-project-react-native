@@ -1,24 +1,21 @@
-import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Card, Typography, useDeviceMotion } from '#shared';
+import React from "react";
+import { StyleSheet, View, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Card, Typography, useDeviceMotion } from "#shared";
 
 export default function MotionScreen() {
   const motion = useDeviceMotion();
 
   // Helper function to format the long decimal numbers
   const formatNumber = (num?: number) => {
-    if (num === undefined) return '0.00';
+    if (num === undefined) return "0.00";
     return num.toFixed(2);
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        <Typography
-          variant='title'
-          style={styles.headerTitle}
-        >
+        <Typography variant="title" style={styles.headerTitle}>
           Device Sensors
         </Typography>
 
@@ -55,28 +52,28 @@ export default function MotionScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f8fafc' },
+  container: { flex: 1, backgroundColor: "#f8fafc" },
   content: { padding: 16 },
-  headerTitle: { marginBottom: 24, textAlign: 'center' },
+  headerTitle: { marginBottom: 24, textAlign: "center" },
   dataRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#e2e8f0',
+    borderBottomColor: "#e2e8f0",
   },
-  label: { fontSize: 16, color: '#64748b', fontWeight: '500' },
+  label: { fontSize: 16, color: "#64748b", fontWeight: "500" },
   value: {
     fontSize: 18,
-    color: '#0f172a',
-    fontWeight: 'bold',
-    fontFamily: 'Courier',
+    color: "#0f172a",
+    fontWeight: "bold",
+    fontFamily: "Courier",
   },
   hint: {
     marginTop: 24,
-    textAlign: 'center',
-    color: '#94a3b8',
+    textAlign: "center",
+    color: "#94a3b8",
     fontSize: 14,
     paddingHorizontal: 20,
   },

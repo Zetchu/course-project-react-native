@@ -1,6 +1,6 @@
-import React from 'react';
-import { View, ViewStyle } from 'react-native';
-import { colors, shadows, shapes, spacing } from '../../foundations';
+import React from "react";
+import { View, ViewStyle } from "react-native";
+import { colors, shadows, shapes, spacing } from "../../foundations";
 
 interface CardProps {
   children: React.ReactNode;

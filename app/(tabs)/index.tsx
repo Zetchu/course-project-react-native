@@ -1,8 +1,8 @@
-import React from 'react';
-import { StyleSheet, View, ActivityIndicator, Text } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { CurrentWeather, Forecast, useCurrentLocation } from '#weather';
-import { Typography } from '#shared';
+import React from "react";
+import { StyleSheet, View, ActivityIndicator, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { CurrentWeather, Forecast, useCurrentLocation } from "#weather";
+import { Typography } from "#shared";
 
 export default function WeatherScreen() {
   const location = useCurrentLocation();
@@ -10,21 +10,15 @@ export default function WeatherScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        <Typography
-          variant='title'
-          style={styles.headerTitle}
-        >
+        <Typography variant="title" style={styles.headerTitle}>
           Skycast Dashboard
         </Typography>
 
         {/* Wait for the GPS coordinates to load before rendering the weather cards */}
         {!location ? (
           <View style={styles.centerContainer}>
-            <ActivityIndicator
-              size='large'
-              color='#0f172a'
-            />
-            <Text style={{ marginTop: 12, color: '#64748b' }}>
+            <ActivityIndicator size="large" color="#0f172a" />
+            <Text style={{ marginTop: 12, color: "#64748b" }}>
               Acquiring satellite signal...
             </Text>
           </View>
@@ -44,12 +38,12 @@ const styles = StyleSheet.create({
   content: { padding: 16 },
   headerTitle: {
     marginBottom: 16,
-    textAlign: 'center',
+    textAlign: "center",
   },
   centerContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 100,
   },
 });
