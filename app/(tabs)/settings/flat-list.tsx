@@ -1,6 +1,6 @@
-import React, { useState, useCallback } from 'react';
-import { View, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
-import { Card, Typography } from '#shared';
+import React, { useState, useCallback } from "react";
+import { View, FlatList, StyleSheet, ActivityIndicator } from "react-native";
+import { Card, Typography } from "#shared";
 
 const INITIAL_DATA = Array.from({ length: 15 }, (_, i) => ({
   id: `item-${i}`,
@@ -41,8 +41,8 @@ export default function FlatListExample() {
   const renderItem = useCallback(
     ({ item }: { item: (typeof INITIAL_DATA)[0] }) => (
       <Card>
-        <Typography variant='label'>{item.title}</Typography>
-        <Typography variant='muted'>{item.description}</Typography>
+        <Typography variant="label">{item.title}</Typography>
+        <Typography variant="muted">{item.description}</Typography>
       </Card>
     ),
     [],
@@ -50,10 +50,7 @@ export default function FlatListExample() {
 
   return (
     <View style={styles.container}>
-      <Typography
-        variant='title'
-        style={styles.header}
-      >
+      <Typography variant="title" style={styles.header}>
         FlatList Example
       </Typography>
       <FlatList
@@ -74,7 +71,7 @@ export default function FlatListExample() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f8fafc' },
+  container: { flex: 1, backgroundColor: "#f8fafc" },
   header: { padding: 16 },
   listContent: { paddingHorizontal: 16, paddingBottom: 16, gap: 12 },
 });
