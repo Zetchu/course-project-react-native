@@ -1,9 +1,9 @@
-import React, { ReactNode } from "react";
-import { Text, TextProps } from "react-native";
-import { Link } from "expo-router";
-import { typography } from "../../foundations";
+import React, { ReactNode } from 'react';
+import { Text, TextProps } from 'react-native';
+import { Link } from 'expo-router';
+import { typography } from '../../foundations';
 
-type TypographyVariant = keyof Omit<typeof typography, "baseSize">;
+type TypographyVariant = keyof Omit<typeof typography, 'baseSize'>;
 
 export interface TypographyProps extends TextProps {
   variant?: TypographyVariant;
@@ -14,7 +14,7 @@ export interface TypographyProps extends TextProps {
 }
 
 export const Typography: React.FC<TypographyProps> = ({
-  variant = "normal",
+  variant = 'normal',
   children,
   href,
   push,
@@ -27,8 +27,16 @@ export const Typography: React.FC<TypographyProps> = ({
 
   if (href) {
     return (
-      <Link href={href as any} push={push} replace={replace} asChild>
-        <Text style={[textStyle, style]} {...props}>
+      <Link
+        href={href as any}
+        push={push}
+        replace={replace}
+        asChild
+      >
+        <Text
+          style={[textStyle, style]}
+          {...props}
+        >
           {children}
         </Text>
       </Link>
@@ -36,7 +44,10 @@ export const Typography: React.FC<TypographyProps> = ({
   }
 
   return (
-    <Text style={[textStyle, style]} {...props}>
+    <Text
+      style={[textStyle, style]}
+      {...props}
+    >
       {children}
     </Text>
   );

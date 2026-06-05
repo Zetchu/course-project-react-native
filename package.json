@@ -16,9 +16,7 @@
   },
   "imports": {
     "#shared": "./src/shared/index.tsx",
-    "#shared/*": "./src/shared/*",
-    "#weather": "./src/weather/index.tsx",
-    "#weather/*": "./src/weather/*",
+    "#shared/*": "./src/shared/*/index.tsx",
     "#features/*": "./src/features/*/index.ts"
   },
   "dependencies": {

@@ -1,9 +1,9 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect, useState } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect, useState } from 'react';
 // Adjust this import path depending on where you saved location.ts
-import { getLocation, lookupLocation } from "../shared/location/location";
+import { getLocation, lookupLocation } from '../location/location';
 
-const STORAGE_KEY = "cached-location";
+const STORAGE_KEY = 'cached-location';
 
 export type WeatherLocation = {
   name: string;
@@ -21,7 +21,7 @@ export function useCurrentLocation(): WeatherLocation | undefined {
 
       if (currentLocation) {
         const newLocation: WeatherLocation = {
-          name: await lookupLocation("city", currentLocation),
+          name: await lookupLocation('city', currentLocation),
           ...currentLocation,
         };
 
@@ -40,7 +40,7 @@ export function useCurrentLocation(): WeatherLocation | undefined {
 
       // 3. Ultimate fallback if no GPS and no cache
       setLocation({
-        name: "Barcelona",
+        name: 'Barcelona',
         latitude: 41.385063,
         longitude: 2.173404,
       });
