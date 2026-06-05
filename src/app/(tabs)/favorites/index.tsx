@@ -5,10 +5,12 @@ import {
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
-} from "react-native";
-import { useRouter } from "expo-router";
-import { Card } from "../../../src/shared";
-import { useFavorites } from "../../../src/shared/favorites/useFavorites";
+} from 'react-native';
+import { useRouter } from 'expo-router';
+
+import { Card } from '#shared';
+import { useFavorites } from '#features/favorites';
+
 // Import the new hook
 
 export default function FavoritesIndex() {
@@ -20,7 +22,10 @@ export default function FavoritesIndex() {
   if (isLoading) {
     return (
       <View style={[styles.container, styles.centered]}>
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator
+          size='large'
+          color='#0000ff'
+        />
       </View>
     );
   }
@@ -47,8 +52,8 @@ export default function FavoritesIndex() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, backgroundColor: "#f8fafc", gap: 12 },
-  centered: { justifyContent: "center", alignItems: "center" },
-  cityText: { fontSize: 18, fontWeight: "500", color: "#1e293b" },
-  emptyText: { textAlign: "center", marginTop: 20, color: "#64748b" },
+  container: { flex: 1, padding: 16, backgroundColor: '#f8fafc', gap: 12 },
+  centered: { justifyContent: 'center', alignItems: 'center' },
+  cityText: { fontSize: 18, fontWeight: '500', color: '#1e293b' },
+  emptyText: { textAlign: 'center', marginTop: 20, color: '#64748b' },
 });
