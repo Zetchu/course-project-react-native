@@ -1,5 +1,5 @@
 {
-  "ignore": ["babel.config.js"],
+  "ignore": ["babel.config.js", "src/shared/design/foundations/**"],
   "ignoreExportsUsedInFile": true,
   "ignoreDependencies": [],
   "rules": {
