@@ -17,7 +17,6 @@ export default function WeatherScreen() {
           Skycast Dashboard
         </Typography>
 
-        {/* Wait for the GPS coordinates to load before rendering the weather cards */}
         {!location ? (
           <View style={styles.centerContainer}>
             <ActivityIndicator

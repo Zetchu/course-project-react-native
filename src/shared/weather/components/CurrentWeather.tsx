@@ -14,13 +14,12 @@ import {
   CurrentWeatherData,
 } from '../services/weatherService';
 import { useCurrentLocation } from '../useCurrentLocation';
-import { Card } from '#shared';
+import { Card, scheduleMorningBriefing } from '#shared'; // Added briefing function here
 
 const CurrentWeather: React.FC<{ location?: Location }> = ({
   location: propLocation,
 }) => {
   const deviceLocation = useCurrentLocation();
-  // Use the passed location (e.g., from the Favorites screen) or fallback to GPS
   const location = propLocation ?? deviceLocation;
 
   const [data, setData] = useState<CurrentWeatherData>();
@@ -32,7 +31,6 @@ const CurrentWeather: React.FC<{ location?: Location }> = ({
 
       if (manualRefresh) {
         setIsRefreshing(true);
-        // Give immediate light tactile feedback when the user taps to refresh
         void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
       }
 
@@ -41,7 +39,6 @@ const CurrentWeather: React.FC<{ location?: Location }> = ({
         setData(weatherData);
 
         if (manualRefresh) {
-          // Vibrate with a success pattern when the data finishes loading
           void Haptics.notificationAsync(
             Haptics.NotificationFeedbackType.Success,
           );
@@ -49,7 +46,6 @@ const CurrentWeather: React.FC<{ location?: Location }> = ({
       } catch (error) {
         console.error(error);
         if (manualRefresh) {
-          // Vibrate with an error pattern if the fetch fails
           void Haptics.notificationAsync(
             Haptics.NotificationFeedbackType.Error,
           );
@@ -65,7 +61,13 @@ const CurrentWeather: React.FC<{ location?: Location }> = ({
     void loadWeather();
   }, [loadWeather]);
 
-  // Show a loading state while waiting for GPS coordinates
+  // Hook into weather updates to automatically schedule the daily morning brief
+  useEffect(() => {
+    if (data && location) {
+      scheduleMorningBriefing(location.name, data.temperature, data.condition);
+    }
+  }, [data, location]);
+
   if (!location) {
     return (
       <Card>
