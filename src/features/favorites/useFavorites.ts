@@ -28,9 +28,12 @@ export function useFavorites() {
       setIsLoading(false);
     }
   };
-
   useEffect(() => {
-    loadFavorites();
+    const timer = setTimeout(() => {
+      void loadFavorites();
+    }, 0);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const addFavorite = async (city: string) => {

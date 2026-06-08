@@ -59,7 +59,11 @@ const CurrentWeather: React.FC<{ location?: Location }> = ({
 
   useEffect(() => {
     if (!data && !isRefreshing) {
-      void loadWeather();
+      const timer = setTimeout(() => {
+        void loadWeather();
+      }, 0);
+
+      return () => clearTimeout(timer);
     }
   }, [loadWeather, data, isRefreshing]);
 
