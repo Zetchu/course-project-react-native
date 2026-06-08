@@ -65,8 +65,6 @@ export async function scheduleMorningBriefing(
       minute: 0,
     },
   });
-
-  console.log('Morning briefing scheduled for 8:00 AM!');
 }
 export async function sendLocalNotification(title: string, body: string) {
   const hasPermission = await registerForPushNotificationsAsync();

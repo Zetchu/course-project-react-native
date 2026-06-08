@@ -58,8 +58,10 @@ const CurrentWeather: React.FC<{ location?: Location }> = ({
   );
 
   useEffect(() => {
-    void loadWeather();
-  }, [loadWeather]);
+    if (!data && !isRefreshing) {
+      void loadWeather();
+    }
+  }, [loadWeather, data, isRefreshing]);
 
   // Hook into weather updates to automatically schedule the daily morning brief
   useEffect(() => {

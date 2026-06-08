@@ -1,16 +1,12 @@
 // src/shared/favorites/useFavorites.ts
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect, useState } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect, useState } from 'react';
 
-const FAVORITES_KEY = "@skycast_favorite_cities";
+const FAVORITES_KEY = '@skycast_favorite_cities';
 
 export function useFavorites() {
   const [favorites, setFavorites] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    loadFavorites();
-  }, []);
 
   const loadFavorites = async () => {
     try {
@@ -19,7 +15,7 @@ export function useFavorites() {
         setFavorites(JSON.parse(storedFavorites));
       } else {
         // Fallback default cities for a fresh install
-        const defaultCities = ["Barcelona", "Paris", "Tokyo"];
+        const defaultCities = ['Barcelona', 'Paris', 'Tokyo'];
         setFavorites(defaultCities);
         await AsyncStorage.setItem(
           FAVORITES_KEY,
@@ -27,11 +23,15 @@ export function useFavorites() {
         );
       }
     } catch (error) {
-      console.error("Failed to load favorites from storage", error);
+      console.error('Failed to load favorites from storage', error);
     } finally {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    loadFavorites();
+  }, []);
 
   const addFavorite = async (city: string) => {
     try {
@@ -42,7 +42,7 @@ export function useFavorites() {
       setFavorites(newFavorites);
       await AsyncStorage.setItem(FAVORITES_KEY, JSON.stringify(newFavorites));
     } catch (error) {
-      console.error("Failed to save new favorite", error);
+      console.error('Failed to save new favorite', error);
     }
   };
 
@@ -52,7 +52,7 @@ export function useFavorites() {
       setFavorites(newFavorites);
       await AsyncStorage.setItem(FAVORITES_KEY, JSON.stringify(newFavorites));
     } catch (error) {
-      console.error("Failed to remove favorite", error);
+      console.error('Failed to remove favorite', error);
     }
   };
 
