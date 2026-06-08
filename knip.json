@@ -2,7 +2,6 @@
   "ignore": ["babel.config.js"],
   "ignoreExportsUsedInFile": true,
   "ignoreDependencies": [],
-  "ignoreExports": ["src/shared/design/foundations/**"],
   "rules": {
     "exports": "warn"
   }
