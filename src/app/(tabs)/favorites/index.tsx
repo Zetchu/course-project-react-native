@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   View,
   Text,
@@ -6,13 +6,13 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Animated,
-} from 'react-native';
-import { useRouter } from 'expo-router';
-import { Swipeable } from 'react-native-gesture-handler';
-import * as Haptics from 'expo-haptics';
+} from "react-native";
+import { useRouter } from "expo-router";
+import { Swipeable } from "react-native-gesture-handler";
+import * as Haptics from "expo-haptics";
 
-import { Card } from '#shared';
-import { useFavorites } from '#features/favorites';
+import { Card } from "#shared";
+import { useFavorites } from "#features/favorites";
 
 function SwipeableCityItem({
   city,
@@ -31,7 +31,7 @@ function SwipeableCityItem({
     const scale = dragX.interpolate({
       inputRange: [-80, 0],
       outputRange: [1, 0],
-      extrapolate: 'clamp',
+      extrapolate: "clamp",
     });
 
     return (
@@ -57,15 +57,12 @@ function SwipeableCityItem({
       friction={2}
       rightThreshold={40}
       onSwipeableOpen={(direction) => {
-        if (direction === 'right') {
+        if (direction === "right") {
           void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
         }
       }}
     >
-      <TouchableOpacity
-        onPress={onPress}
-        activeOpacity={0.8}
-      >
+      <TouchableOpacity onPress={onPress} activeOpacity={0.8}>
         <Card>
           <Text style={styles.cityText}>📌 {city}</Text>
         </Card>
@@ -81,10 +78,7 @@ export default function FavoritesIndex() {
   if (isLoading) {
     return (
       <View style={[styles.container, styles.centered]}>
-        <ActivityIndicator
-          size='large'
-          color='#0f172a'
-        />
+        <ActivityIndicator size="large" color="#0f172a" />
       </View>
     );
   }
@@ -108,23 +102,23 @@ export default function FavoritesIndex() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, backgroundColor: '#f8fafc', gap: 12 },
-  centered: { justifyContent: 'center', alignItems: 'center' },
-  cityText: { fontSize: 18, fontWeight: '500', color: '#1e293b' },
-  emptyText: { textAlign: 'center', marginTop: 20, color: '#64748b' },
+  container: { flex: 1, padding: 16, backgroundColor: "#f8fafc", gap: 12 },
+  centered: { justifyContent: "center", alignItems: "center" },
+  cityText: { fontSize: 18, fontWeight: "500", color: "#1e293b" },
+  emptyText: { textAlign: "center", marginTop: 20, color: "#64748b" },
 
   deleteButton: {
-    backgroundColor: '#ef4444',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#ef4444",
+    justifyContent: "center",
+    alignItems: "center",
     width: 80,
     borderRadius: 16,
     marginVertical: 4,
     marginLeft: 12,
   },
   deleteText: {
-    color: '#ffffff',
-    fontWeight: 'bold',
+    color: "#ffffff",
+    fontWeight: "bold",
     fontSize: 16,
   },
 });

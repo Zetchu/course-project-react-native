@@ -1,6 +1,6 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { useRouter } from 'expo-router';
-import { Card } from '#shared';
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useRouter } from "expo-router";
+import { Card } from "#shared";
 
 export default function SettingsIndex() {
   const router = useRouter();
@@ -11,7 +11,7 @@ export default function SettingsIndex() {
 
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => router.push('/settings/flat-list')}
+        onPress={() => router.push("/settings/flat-list")}
       >
         <Card>
           <Text style={styles.cardTitle}>📋 FlatList Demo</Text>
@@ -23,7 +23,7 @@ export default function SettingsIndex() {
 
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => router.push('/settings/section-list')}
+        onPress={() => router.push("/settings/section-list")}
       >
         <Card>
           <Text style={styles.cardTitle}>📚 SectionList Demo</Text>
@@ -39,7 +39,7 @@ export default function SettingsIndex() {
 
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => router.push('/settings/motion')}
+        onPress={() => router.push("/settings/motion")}
       >
         <Card>
           <Text style={styles.cardTitle}>📱 Device Sensors</Text>
@@ -51,7 +51,7 @@ export default function SettingsIndex() {
 
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => router.push('/settings/notifications')}
+        onPress={() => router.push("/settings/notifications")}
       >
         <Card>
           <Text style={styles.cardTitle}>🔔 Notification Center</Text>
@@ -63,7 +63,7 @@ export default function SettingsIndex() {
 
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => router.push('/settings/profile')}
+        onPress={() => router.push("/settings/profile")}
       >
         <Card>
           <Text style={styles.cardTitle}>👤 Profile</Text>
@@ -78,25 +78,25 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#f8fafc',
+    backgroundColor: "#f8fafc",
     gap: 12,
   },
   headerText: {
     fontSize: 14,
-    color: '#64748b',
-    fontWeight: '600',
+    color: "#64748b",
+    fontWeight: "600",
     marginBottom: 8,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     letterSpacing: 0.5,
   },
   cardTitle: {
     fontSize: 18,
-    fontWeight: '600',
-    color: '#0f172a',
+    fontWeight: "600",
+    color: "#0f172a",
   },
   cardSubtitle: {
     fontSize: 14,
-    color: '#64748b',
+    color: "#64748b",
     marginTop: 4,
   },
 });
