@@ -38,7 +38,7 @@ jobs:
       - name: Run Tests
         env:
           CI: true
-        run: npm run test:ci
+        run: npm test -- --watchAll=false
 
   build:
     name: Build
